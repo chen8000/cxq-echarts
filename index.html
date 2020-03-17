@@ -6,11 +6,12 @@
   <title>Document</title>
   <script src="./lib/jquery.3.4.1.min.js"></script>
   <script src="./lib/echarts.min.js"></script>
-  <script src="./map/china.js"></script>
-  <script src="./map/world.js"></script>
+  <script src="./lib/map/china.js"></script>
+  <script src="./lib/map/world.js"></script>
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
+  <!-- <div id="script-box"></div> -->
   <div class="container">
     <!-- header -->
     <div class="header shadow">
@@ -22,18 +23,22 @@
 
     <div class="map-box">
       <!-- 地图 -->
+
+      <!-- 世界 -->
       <div class="map-item shadow" id="word"></div>
-      <div class="map-item shadow" id="main"></div>
-      <div class="map-item shadow"></div>
+
+      <!-- 中国 -->
+      <div class="map-item shadow" id="china"></div>
+
+      <!-- 省份 -->
+      <div class="map-item shadow" id="province"></div>
     </div>
   </div>
   
-  
-  <script src="data.js"></script>
   <script src="./js/china.js"></script>
   <script src="./code/word_code.js"></script>
   <script src="./js/word.js"></script>
-  <script src="./province.js"></script>
+  <script src="./js/province.js"></script>
   <script>
 
     $("#getNewsData").click(() => {
@@ -58,12 +63,11 @@
           `)
 
           // 世界数据
-          echartsWord(data.worldlist)
+          wordMap(data.worldlist)
 
           // 中国数据
-          renderEcharts(data.list)
+          chinaMap(data.list)
 
-          // 
         } ,
         error:function(err){
           console.log('获取数据异常！')

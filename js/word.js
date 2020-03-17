@@ -1,4 +1,4 @@
-function echartsWord (data) {
+function wordMap (data) {
   // word_code
   let renderData = []
   data.forEach(v => {

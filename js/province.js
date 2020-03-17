@@ -1,15 +1,20 @@
 
-function chinaMap(data) {
+function provinceMap (data) {
+  
+  data.name === '陕西' ? data.s_ename = 'shanxi1' : data.s_ename = data.ename
 
-    // 默认渲染省份
-    provinceMap(data[0])
-    let max = 0;
-    data.forEach(v => {
-        let value = Number(v.value)
-        max < value && (max = value)
-    })
-    var myChart = echarts.init(document.getElementById('china'))
-    option = {
+  data.city.forEach(v => {
+    v.value = v.conNum
+
+    // !v.name.includes('市') && (v.name = v.name + '市')
+  })
+
+
+  loadScript(`./lib/map/province/${data.s_ename}.js`, function () {
+    
+    var myChart = echarts.init(document.getElementById('province'))
+    myChart.setOption(
+      {
         
         tooltip: {
             trigger: 'item',
@@ -71,14 +76,14 @@ function chinaMap(data) {
         },
         
         geo: {
-            map: "china",
+            map: data.name,
             roam: !1,
             scaleLimit: {
                 min: 1,
                 max: 2
             },
-            zoom: 1.23,
-            top: 120,
+            // zoom: 1,
+            top: 30,
             label: {
                 normal: {
                     show: !0,
@@ -103,14 +108,31 @@ function chinaMap(data) {
         series: [{
             type: "map",
             geoIndex: 0,
-            data: data
+            data: data.city
         }]
-    };
-    myChart.setOption(option);
+      }
+    )
+  })
+}
 
-    // 点击事件
-    myChart.on('click', function (params) {
-        provinceMap(params.data)
-    })
 
+function loadScript(url, callback) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  if(typeof(callback) != "undefined"){
+    if (script.readyState) {
+      script.onreadystatechange = function () {
+        if (script.readyState == "loaded" || script.readyState == "complete") {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else {
+      script.onload = function () {
+        callback();
+      };
+    }
+  }
+  script.src = url;
+  document.body.appendChild(script)
 }
