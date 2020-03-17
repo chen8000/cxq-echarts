@@ -4,19 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
-  <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=u9lnARpke9DDZlGptPRzztjERyu2RPpG&__ec_v__=20190126"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+  <script src="./lib/jquery.3.4.1.min.js"></script>
+  <script src="./lib/echarts.min.js"></script>
+  <script src="./map/china.js"></script>
+  <script src="./map/world.js"></script>
+  <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-  <div id="main" style="width: 1000px; height: 500px;"></div>
+  <div class="container">
+    <!-- header -->
+    <div class="header shadow">
+      <p id="newTime"></p>
+      <button id="getNewsData">刷新</button>
+    </div>
+    <!-- 汇总数据 -->
+    <div id="totals"></div>
+
+    <div class="map-box">
+      <!-- 地图 -->
+      <div class="map-item shadow" id="word"></div>
+      <div class="map-item shadow" id="main"></div>
+      <div class="map-item shadow"></div>
+    </div>
+  </div>
+  
+  
   <script src="data.js"></script>
-  <script src="echarts.js"></script>
+  <script src="./js/china.js"></script>
+  <script src="./code/word_code.js"></script>
+  <script src="./js/word.js"></script>
+  <script src="./province.js"></script>
+  <script>
+
+    $("#getNewsData").click(() => {
+      // 获取最新疫情数据
+      $.ajax({
+        url: 'https://interface.sina.cn/news/wap/fymap2020_data.d.json',
+        dataType:'jsonp',
+        data:{},
+        success:function(result){
+
+          let data = result.data
+          
+          
+          $('#newTime').text(data.times)
+          $('#totals').html(`
+            <p class="shadow">累计确诊：${data.gntotal}(较上日 ${data.add_daily.addcon_new})</p>
+            <p class="shadow">累计死亡：${data.deathtotal}(较昨日${data.add_daily.adddeath_new})</p>
+            <p class="shadow">现有疑似：${data.sustotal}(较昨日${data.add_daily.wjw_addsus_new})</p>
+            <p class="shadow">累计治愈：${data.curetotal}(较昨日${data.add_daily.addcure_new})</p>
+            <p class="shadow">现有确诊：${data.econNum}(较昨日${data.add_daily.addecon_new})</p>
+            <p class="shadow">现有重症：${data.heconNum}(较昨日${data.add_daily.addhecon_new})</p>
+          `)
+
+          // 世界数据
+          echartsWord(data.worldlist)
+
+          // 中国数据
+          renderEcharts(data.list)
+
+          // 
+        } ,
+        error:function(err){
+          console.log('获取数据异常！')
+        }
+      })
+    })
+
+    $("#getNewsData").click()
+
+  </script>
 </body>
 </html>
