@@ -9,6 +9,8 @@ function provinceMap (data) {
     // !v.name.includes('市') && (v.name = v.name + '市')
   })
 
+  $('#title').html(`${data.name}疫情`)
+
 
   loadScript(`./lib/map/province/${data.s_ename}.js`, function () {
     

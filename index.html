@@ -23,16 +23,32 @@
 
     <div class="map-box">
       <!-- 地图 -->
+      <div class="china-pro">
+        <!-- 中国 -->
+        <div class="map-item shadow">
+          <p class="title">国内疫情</p>
+          <div class="map-container" id="china"></div>
+        </div>
+        
+
+        <!-- 省份 -->
+        <div class="map-item shadow" >
+          <p class="title" id="title"></p>
+          <div class="map-container" id="province"></div>
+        </div>
+        
+      </div>
 
       <!-- 世界 -->
-      <div class="map-item shadow" id="word"></div>
-
-      <!-- 中国 -->
-      <div class="map-item shadow" id="china"></div>
-
-      <!-- 省份 -->
-      <div class="map-item shadow" id="province"></div>
+      <div class="map-item word-box shadow">
+        <p class="title">海外疫情</p>
+        <div class="map-container" id="word"></div>
+      </div>
+      
     </div>
+
+    
+
   </div>
   
   <script src="./js/china.js"></script>

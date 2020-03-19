@@ -78,7 +78,7 @@ function chinaMap(data) {
                 max: 2
             },
             zoom: 1.23,
-            top: 120,
+            // top: 120,
             label: {
                 normal: {
                     show: !0,

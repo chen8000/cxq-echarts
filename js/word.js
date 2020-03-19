@@ -82,7 +82,7 @@ function wordMap (data) {
           type: 'map',
           mapType: 'world',
           zoom: 1.23,
-          top: 180,
+        //   top: 180,
           roam: false,
           itemStyle:{
               emphasis:{label:{show:true}}

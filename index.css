@@ -39,6 +39,7 @@ body {
 }
 .container {
   width: 100%;
+  /* overflow: scroll; */
   height: 100%;
   /* display: flex; */
   /* padding: 15px; */
@@ -62,16 +63,44 @@ body {
 }
 
 .map-box {
-  min-height: 500px;
+  overflow: auto;
   flex: 1;
   margin-top: 20px;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 0 15px;
+}
+.china-pro {
   display: flex;
   justify-content: space-between;
+  height: 700px;
 }
 .map-item {
+
   /* flex: 1; */
   background: #fff;
-  width: 32.5%;
+  width: 49.5%;
   height: 100%;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  padding: 15px 10px;
+  padding-left: 20px ;
+  border-bottom: 1px solid rgb(231, 231, 231);
+}
+.map-container {
+  flex: 1;
+}
+.word-box {
+  margin-top: 20px;
+  width: 100%;
+  height: 710px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.map-container {
+
 }
